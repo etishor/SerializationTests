@@ -8,6 +8,15 @@ using System.IO;
 
 namespace SerializersTests
 {
+    /// <summary>
+    /// Test generator class.
+    /// The CreateTests method scans the assembly for ISerializerAdapter types and IAssertEquality types 
+    /// and generates a TestSuite for each Adapter with a TestCase for each Message.
+    /// </summary>
+    /// <remarks>
+    /// To test with new messages just create them implementing IAssertEquality.
+    /// To test new serializers jsut create them implementing ISerializerAdapter.
+    /// </remarks>
     public class SerializationTests
     {
         [StaticTestFactory]

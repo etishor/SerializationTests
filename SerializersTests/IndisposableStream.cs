@@ -6,6 +6,9 @@ using System.IO;
 
 namespace SerializersTests
 {
+    /// <summary>
+    /// Helper class stolen from Jonathan Oliver
+    /// </summary>
     internal class IndisposableStream : Stream
     {
         private readonly Stream stream;
