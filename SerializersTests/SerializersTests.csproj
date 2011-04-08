@@ -31,15 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EventStore">
-      <HintPath>..\lib\EventStore\EventStore.dll</HintPath>
-    </Reference>
-    <Reference Include="EventStore.Serialization.Json">
-      <HintPath>..\lib\EventStore\EventStore.Serialization.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="EventStore.Serialization.ServiceStack">
-      <HintPath>..\lib\EventStore\EventStore.Serialization.ServiceStack.dll</HintPath>
-    </Reference>
     <Reference Include="Gallio, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\gallio\Gallio.dll</HintPath>
@@ -52,9 +43,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\gallio\MbUnit.dll</HintPath>
     </Reference>
-    <Reference Include="NanoMessageBus">
-      <HintPath>..\lib\NanoMessageBus\NanoMessageBus.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\lib\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -66,6 +54,9 @@
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\lib\protobuf-net\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\lib\ServiceStack\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
