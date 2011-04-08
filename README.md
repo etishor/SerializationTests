@@ -10,7 +10,7 @@ define some guidelines for creating serializable objects ( messages, commands, e
 ### Running the tests
 
 To run the tests you should install [Gallio](http://www.gallio.org/Downloads.aspx) and use the GUI Icarus test runner to see the results.
-You can also take a look at Gallio Test Report.htm
+You can also take a look at [Gallio Test Report](http://dl.dropbox.com/u/20001252/SerializationTests/Gallio%20Test%20Report.htm)
 
 ### Serialization Libraries Used
 * [BinaryFormatter](http://msdn.microsoft.com/en-us/library/system.runtime.serialization.formatters.binary.binaryformatter.aspx)
