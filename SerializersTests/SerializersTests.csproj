@@ -83,6 +83,7 @@
     <Compile Include="ISerializerAdapter.cs" />
     <Compile Include="Messages\ArrayField.cs" />
     <Compile Include="Messages\ArrayProperty.cs" />
+    <Compile Include="Messages\CustomObjectProperty.cs" />
     <Compile Include="Messages\EnumerableProperty.cs" />
     <Compile Include="Messages\PrivateProperty.cs" />
     <Compile Include="Messages\PublicReadOnlyNamesNotInConstructorWithPrivateParameterlessConstructor.cs" />
