@@ -6,7 +6,10 @@ using NServiceBus;
 
 namespace SerializersTests.Adapters
 {
-    public class NServiceBusBinarySerializerAdapter : ISerializerAdapter
+    /// <summary>
+    /// Not used since it's using BinaryFormatter
+    /// </summary>
+    public class NServiceBusBinarySerializerAdapter // : ISerializerAdapter
     {
         private readonly NServiceBus.Serializers.Binary.MessageSerializer serializer = new NServiceBus.Serializers.Binary.MessageSerializer();
 
