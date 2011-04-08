@@ -82,6 +82,7 @@
     <Compile Include="IndisposableStream.cs" />
     <Compile Include="ISerializerAdapter.cs" />
     <Compile Include="Messages\ArrayField.cs" />
+    <Compile Include="Messages\ArrayProperty.cs" />
     <Compile Include="Messages\PublicReadOnlyNamesNotInConstructorWithPrivateParameterlessConstructor.cs" />
     <Compile Include="Messages\PublicReadOnlyNamesInConstructorWithPrivateParameterlessConstructor.cs" />
     <Compile Include="Messages\PrivateSetterNameNotInConstructorWithPrivateParameterlessConstructor.cs" />
