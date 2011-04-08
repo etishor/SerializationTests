@@ -45,26 +45,37 @@ namespace SerializersTests
 
         private static void RunTest(Type serializerType, Type messageType)
         {
+
             ISerializerAdapter serializer = (ISerializerAdapter)Activator.CreateInstance(serializerType);
-            IAssertEquality message =(IAssertEquality)messageType.GetMethod("CreateInstance", 
+            IAssertEquality message = (IAssertEquality)messageType.GetMethod("CreateInstance",
                 BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy).Invoke(null, null);
 
             using (MemoryStream ms = new MemoryStream())
             {
-                MethodInfo serializeMethod = serializerType.GetMethod("Serialize");
-                MethodInfo genericSerialize = serializeMethod.MakeGenericMethod(messageType);
-                genericSerialize.Invoke(serializer, new object[] { ms, message });
+                object output = null;
+                bool ex = false;
+                try
+                {
+                    MethodInfo serializeMethod = serializerType.GetMethod("Serialize");
+                    MethodInfo genericSerialize = serializeMethod.MakeGenericMethod(messageType);
+                    genericSerialize.Invoke(serializer, new object[] { ms, message });
 
-                ms.Flush();
-                ms.Seek(0, SeekOrigin.Begin);
+                    ms.Flush();
+                    ms.Seek(0, SeekOrigin.Begin);
 
-                MethodInfo deserializeMethod = serializerType.GetMethod("Deserialize");
-                MethodInfo genericDeserialize = deserializeMethod.MakeGenericMethod(messageType);
-                object output = genericDeserialize.Invoke(serializer, new object[] { ms });
-
-                Assert.IsNotNull(output);
-                                
-                message.AssertEquality(output);                
+                    MethodInfo deserializeMethod = serializerType.GetMethod("Deserialize");
+                    MethodInfo genericDeserialize = deserializeMethod.MakeGenericMethod(messageType);
+                    output = genericDeserialize.Invoke(serializer, new object[] { ms });
+                }
+                catch (Exception x)
+                {
+                    Assert.Inconclusive("The the serializer has at least thrown an exception instead of unexpected results {0}", x);
+                    ex = true;
+                }
+                if (!ex)
+                {
+                    message.AssertEquality(output);
+                }
             }
         }
 

@@ -83,6 +83,7 @@
     <Compile Include="ISerializerAdapter.cs" />
     <Compile Include="Messages\ArrayField.cs" />
     <Compile Include="Messages\ArrayProperty.cs" />
+    <Compile Include="Messages\DataContractOnly.cs" />
     <Compile Include="Messages\CustomObjectProperty.cs" />
     <Compile Include="Messages\EnumerableProperty.cs" />
     <Compile Include="Messages\PrivateProperty.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Messages\PrivateSetterNameInConstructor.cs" />
     <Compile Include="Messages\PublicReadOnlyNamesNotInConstructor.cs" />
     <Compile Include="IAssertEquality.cs" />
+    <Compile Include="Messages\SerializableOnly.cs" />
     <Compile Include="Messages\UriField.cs" />
     <Compile Include="SerializationTests.cs" />
     <Compile Include="Messages\PublicReadOnlyNamesInConstructor.cs" />
