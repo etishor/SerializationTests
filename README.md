@@ -7,6 +7,11 @@ Collection of object serialization tests using various serialization libraries.
 The scope of this project is to provide an overview of what each serialization library has to offer and to 
 define some guidelines for creating serializable objects ( messages, commands, events ).
 
+### Running the tests
+
+To run the tests you should install [Gallio](http://www.gallio.org/Downloads.aspx) and use the GUI Icarus test runner to see the results.
+You can also take a look at Gallio Test Report.htm
+
 ### Serialization Libraries Used
 * [BinaryFormatter](http://msdn.microsoft.com/en-us/library/system.runtime.serialization.formatters.binary.binaryformatter.aspx)
 * [DataContractSerializer](http://msdn.microsoft.com/en-us/library/system.runtime.serialization.datacontractserializer.aspx)
