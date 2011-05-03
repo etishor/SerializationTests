@@ -55,6 +55,9 @@
     <Reference Include="protobuf-net">
       <HintPath>..\lib\protobuf-net\protobuf-net.dll</HintPath>
     </Reference>
+    <Reference Include="Raven.Json">
+      <HintPath>..\lib\Raven.Json\Raven.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\lib\ServiceStack\ServiceStack.Text.dll</HintPath>
     </Reference>
@@ -76,6 +79,7 @@
     <Compile Include="Adapters\NServiceBusBinarySerializerAdapter.cs" />
     <Compile Include="Adapters\NServiceBusXmlSerializerAdapter.cs" />
     <Compile Include="Adapters\ProtocolBufersSerializerAdapter.cs" />
+    <Compile Include="Adapters\RavenJsonAdapter.cs" />
     <Compile Include="Adapters\ServiceStackJsonSerializerAdapter.cs" />
     <Compile Include="Adapters\SoapFormatterAdapter.cs" />
     <Compile Include="Adapters\XmlSerializerAdapter.cs" />
@@ -83,6 +87,8 @@
     <Compile Include="ISerializerAdapter.cs" />
     <Compile Include="Messages\ArrayField.cs" />
     <Compile Include="Messages\ArrayProperty.cs" />
+    <Compile Include="Messages\SealedPublicReadOnlyNamesInConstructorWithPrivateParameterlessConstructor.cs" />
+    <Compile Include="Messages\SealedPublicReadOnlyNamesInConstructor.cs" />
     <Compile Include="Messages\DataContractOnly.cs" />
     <Compile Include="Messages\CustomObjectProperty.cs" />
     <Compile Include="Messages\EnumerableProperty.cs" />
