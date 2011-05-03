@@ -23,7 +23,8 @@ You can also take a look at [Gallio Test Report](http://dl.dropbox.com/u/2000125
 * [ServiceStack JsonSerializer](https://github.com/ServiceStack/ServiceStack.Text)
 * [SoapFormatter](http://msdn.microsoft.com/en-us/library/system.runtime.serialization.formatters.soap.soapformatter.aspx)
 * [XmlSerializer](http://msdn.microsoft.com/en-us/library/system.xml.serialization.xmlserializer.aspx)
+* [Raven.Json](https://github.com/ravendb/Raven.Json)
 
 ### Conclusion
 
-I will post a more generic conclusion on http://www.erata.net
+You can read my conclusions at [.NET Serialization Choices](http://www.erata.net/net/net-serialization-choices/)
