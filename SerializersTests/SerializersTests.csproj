@@ -88,6 +88,8 @@
     <Compile Include="Messages\ArrayField.cs" />
     <Compile Include="Messages\ArrayProperty.cs" />
     <Compile Include="Messages\ComposedIDictionaryProperty.cs" />
+    <Compile Include="Messages\CollectionOfStrings.cs" />
+    <Compile Include="Messages\CollectionOfCustomObjects.cs" />
     <Compile Include="Messages\ObjectPropertyWithCustomValue.cs" />
     <Compile Include="Messages\ObjectProperty.cs" />
     <Compile Include="Messages\SealedPublicReadOnlyNamesInConstructorNoAttributes.cs" />

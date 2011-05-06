@@ -5,6 +5,8 @@ using System.Text;
 using MbUnit.Framework;
 using System.Reflection;
 using System.IO;
+using System.Runtime.Serialization;
+using ProtoBuf;
 
 namespace SerializersTests
 {
@@ -31,6 +33,11 @@ namespace SerializersTests
                 {
                     test.Children.Add(BuildTestCase(serializer, message));
                 }
+                foreach (TestCase testCase in BuildEnumerableTests(serializer))
+                {
+                    test.Children.Add(testCase);
+                }
+
                 yield return test;
             }
         }
@@ -43,6 +50,100 @@ namespace SerializersTests
             return test;
         }
 
+        private static IEnumerable<TestCase> BuildEnumerableTests(Type serializerType)
+        {
+            string arrayName = string.Format("{0}_ArrayOfCustomObjects", serializerType.Name.Replace("Adapter`1", ""));
+            yield return new TestCase(arrayName, () => RunArrayTest(serializerType));
+
+            string listName = string.Format("{0}_ListOfCustomObjects", serializerType.Name.Replace("Adapter`1", ""));
+            yield return new TestCase(listName, () => RunListTest(serializerType));
+        }
+        
+        [Serializable]
+        [DataContract]
+        [ProtoContract]
+        private class TestCustomObject
+        {
+            [DataMember]
+            [ProtoMember(1)]
+            public object Value { get; set; }
+        }
+
+
+        private static void RunArrayTest(Type serializerType)
+        {
+            ISerializerAdapter serializer = (ISerializerAdapter)Activator.CreateInstance(serializerType);
+            TestCustomObject[] messages = new TestCustomObject[] { new TestCustomObject { Value = 10 } };
+            Type messagesType = typeof(TestCustomObject[]);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                object output = null;
+                bool ex = false;
+                try
+                {
+                    MethodInfo serializeMethod = serializerType.GetMethod("Serialize");
+                    MethodInfo genericSerialize = serializeMethod.MakeGenericMethod(messagesType);
+                    genericSerialize.Invoke(serializer, new object[] { new IndisposableStream(ms), messages });
+
+                    ms.Flush();
+                    ms.Seek(0, SeekOrigin.Begin);
+
+                    MethodInfo deserializeMethod = serializerType.GetMethod("Deserialize");
+                    MethodInfo genericDeserialize = deserializeMethod.MakeGenericMethod(messagesType);
+                    output = genericDeserialize.Invoke(serializer, new object[] { new IndisposableStream(ms) });
+                }
+                catch (Exception x)
+                {
+                    Assert.Inconclusive("The the serializer has at least thrown an exception instead of unexpected results {0}", x);
+                    ex = true;
+                }
+                if (!ex)
+                {
+                    Assert.IsInstanceOfType(messagesType, output);
+                    TestCustomObject[] deserialized = output as TestCustomObject[];
+                    Assert.AreEqual(messages.Single().Value.ToString(), deserialized.Single().Value.ToString());
+                }
+            }
+        }
+
+        private static void RunListTest(Type serializerType)
+        {
+            ISerializerAdapter serializer = (ISerializerAdapter)Activator.CreateInstance(serializerType);
+            List<TestCustomObject> messages = new List<TestCustomObject> { new TestCustomObject { Value = 10 } };
+            Type messagesType = typeof(List<TestCustomObject>);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                object output = null;
+                bool ex = false;
+                try
+                {
+                    MethodInfo serializeMethod = serializerType.GetMethod("Serialize");
+                    MethodInfo genericSerialize = serializeMethod.MakeGenericMethod(messagesType);
+                    genericSerialize.Invoke(serializer, new object[] { new IndisposableStream(ms), messages });
+
+                    ms.Flush();
+                    ms.Seek(0, SeekOrigin.Begin);
+
+                    MethodInfo deserializeMethod = serializerType.GetMethod("Deserialize");
+                    MethodInfo genericDeserialize = deserializeMethod.MakeGenericMethod(messagesType);
+                    output = genericDeserialize.Invoke(serializer, new object[] { new IndisposableStream(ms) });
+                }
+                catch (Exception x)
+                {
+                    Assert.Inconclusive("The the serializer has at least thrown an exception instead of unexpected results {0}", x);
+                    ex = true;
+                }
+                if (!ex)
+                {
+                    Assert.IsInstanceOfType(messagesType, output);
+                    List<TestCustomObject> deserialized = output as List<TestCustomObject>;
+                    Assert.AreEqual(messages.Single().Value.ToString(), deserialized.Single().Value.ToString());
+                }
+            }
+        }
+  
         private static void RunTest(Type serializerType, Type messageType)
         {
 

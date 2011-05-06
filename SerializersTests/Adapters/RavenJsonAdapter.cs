@@ -12,17 +12,15 @@ namespace SerializersTests.Adapters
     {
         protected override void Serialize(JsonWriter writer, object graph)
         {
-            RavenJObject.FromObject(graph,base.serializer).WriteTo(writer);
+            RavenJToken.FromObject(graph, base.serializer).WriteTo(writer);
         }
 
         protected override T Deserialize<T>(JsonReader reader)
         {
-            using (RavenJTokenReader tokenReader = new RavenJTokenReader(RavenJObject.Load(reader)))
+            using (RavenJTokenReader tokenReader = new RavenJTokenReader(RavenJToken.ReadFrom(reader)))
             {
                 return base.Deserialize<T>(tokenReader);
             }
-            //RavenJObject json = RavenJObject.Load(reader);
-            //return base.Deserialize<T>(new RavenJTokenReader(json));
         }
     }
 }
