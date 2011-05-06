@@ -9,19 +9,42 @@ namespace SerializersTests.Adapters
 {
     public class NewtonsoftJsonNetAdapter : ISerializerAdapter
     {
-        public void Serialize<T>(System.IO.Stream stream, T instance)
+        protected readonly JsonSerializer serializer = new JsonSerializer()
         {
-            string json = JsonConvert.SerializeObject(instance);
-            byte[] data = Encoding.UTF8.GetBytes(json);
-            stream.Write(data, 0, data.Length);
+            MissingMemberHandling = MissingMemberHandling.Error,
+            TypeNameHandling = TypeNameHandling.All
+        };
+
+        public void Serialize<T>(Stream stream, T instance)
+        {
+            using (var streamWriter = new StreamWriter(stream, Encoding.UTF8))
+            {
+                this.Serialize(new JsonTextWriter(streamWriter), instance);
+            }
+        }
+
+        protected virtual void Serialize(JsonWriter writer, object graph)
+        {
+            using (writer)
+            {
+                this.serializer.Serialize(writer, graph);
+            }
         }
 
         public T Deserialize<T>(System.IO.Stream stream)
         {
             using (StreamReader r = new StreamReader(stream))
             {
-                return JsonConvert.DeserializeObject<T>(r.ReadToEnd());
+                return this.Deserialize<T>(new JsonTextReader(r));
             }
-        }       
+        }
+
+        protected virtual T Deserialize<T>(JsonReader reader)
+        {
+            using (reader)
+            {
+                return serializer.Deserialize<T>(reader);
+            }
+        }
     }
 }

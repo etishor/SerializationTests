@@ -8,34 +8,21 @@ using System.IO;
 
 namespace SerializersTests.Adapters
 {
-    public class RavenJsonAdapter : ISerializerAdapter
+    public class RavenJsonAdapter : NewtonsoftJsonNetAdapter
     {
-        private readonly JsonSerializer serializer = new JsonSerializer();
-
-        public void Serialize<T>(System.IO.Stream stream, T instance)
+        protected override void Serialize(JsonWriter writer, object graph)
         {
-            var o = RavenJObject.FromObject(instance);
-            
-            using(var text = new StreamWriter(new IndisposableStream(stream)))
-            {
-                using(var jsonWriter = new JsonTextWriter(text))
-                {
-                    o.WriteTo(jsonWriter);
-                }
-            }
+            RavenJObject.FromObject(graph,base.serializer).WriteTo(writer);
         }
 
-        public T Deserialize<T>(System.IO.Stream stream)
+        protected override T Deserialize<T>(JsonReader reader)
         {
-            using (var text = new StreamReader(new IndisposableStream(stream)))
+            using (RavenJTokenReader tokenReader = new RavenJTokenReader(RavenJObject.Load(reader)))
             {
-                using(var jsonReader = new JsonTextReader(text))
-                {
-                    var jobject = RavenJObject.ReadFrom(jsonReader);
-
-                    return serializer.Deserialize<T>(new RavenJTokenReader(jobject));
-                }
+                return base.Deserialize<T>(tokenReader);
             }
+            //RavenJObject json = RavenJObject.Load(reader);
+            //return base.Deserialize<T>(new RavenJTokenReader(json));
         }
     }
 }

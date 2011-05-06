@@ -58,14 +58,14 @@ namespace SerializersTests
                 {
                     MethodInfo serializeMethod = serializerType.GetMethod("Serialize");
                     MethodInfo genericSerialize = serializeMethod.MakeGenericMethod(messageType);
-                    genericSerialize.Invoke(serializer, new object[] { ms, message });
+                    genericSerialize.Invoke(serializer, new object[] { new IndisposableStream(ms), message });
 
                     ms.Flush();
                     ms.Seek(0, SeekOrigin.Begin);
 
                     MethodInfo deserializeMethod = serializerType.GetMethod("Deserialize");
                     MethodInfo genericDeserialize = deserializeMethod.MakeGenericMethod(messageType);
-                    output = genericDeserialize.Invoke(serializer, new object[] { ms });
+                    output = genericDeserialize.Invoke(serializer, new object[] { new IndisposableStream(ms) });
                 }
                 catch (Exception x)
                 {
@@ -86,7 +86,7 @@ namespace SerializersTests
                 .Where(t => typeof(ISerializerAdapter).IsAssignableFrom(t));
         }
 
-        private static IEnumerable<Type> GetMessages()
+        public static IEnumerable<Type> GetMessages()
         {
             return typeof(IAssertEquality).Assembly.GetTypes()
                 .Where(t => !t.IsInterface)

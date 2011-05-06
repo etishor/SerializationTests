@@ -87,6 +87,14 @@
     <Compile Include="ISerializerAdapter.cs" />
     <Compile Include="Messages\ArrayField.cs" />
     <Compile Include="Messages\ArrayProperty.cs" />
+    <Compile Include="Messages\ComposedIDictionaryProperty.cs" />
+    <Compile Include="Messages\ObjectPropertyWithCustomValue.cs" />
+    <Compile Include="Messages\ObjectProperty.cs" />
+    <Compile Include="Messages\SealedPublicReadOnlyNamesInConstructorNoAttributes.cs" />
+    <Compile Include="Messages\IDictionaryProperty.cs" />
+    <Compile Include="Messages\DictionaryProperty.cs" />
+    <Compile Include="Messages\ListProperty.cs" />
+    <Compile Include="Messages\NoDataContract.cs" />
     <Compile Include="Messages\SealedPublicReadOnlyNamesInConstructorWithPrivateParameterlessConstructor.cs" />
     <Compile Include="Messages\SealedPublicReadOnlyNamesInConstructor.cs" />
     <Compile Include="Messages\DataContractOnly.cs" />
