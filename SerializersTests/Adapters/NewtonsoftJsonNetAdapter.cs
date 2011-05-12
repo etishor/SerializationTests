@@ -12,7 +12,7 @@ namespace SerializersTests.Adapters
         protected readonly JsonSerializer serializer = new JsonSerializer()
         {
             MissingMemberHandling = MissingMemberHandling.Error,
-            TypeNameHandling = TypeNameHandling.All
+            TypeNameHandling = TypeNameHandling.All,
         };
 
         public virtual void Serialize<T>(Stream stream, T instance)
@@ -26,6 +26,7 @@ namespace SerializersTests.Adapters
 
         protected virtual void Serialize(JsonWriter writer, object graph)
         {
+            writer.Formatting = Formatting.None;
             this.serializer.Serialize(writer, graph);
         }
 

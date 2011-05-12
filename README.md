@@ -28,6 +28,12 @@ You can also take a look at [Gallio Test Report](http://dl.dropbox.com/u/2000125
 * [JavaScriptSerializer](http://msdn.microsoft.com/en-us/library/system.web.script.serialization.javascriptserializer.aspx)
 * [Raven.Json](https://github.com/ravendb/Raven.Json)
 
+### Benchmark
+
+Basic benchmark results 
+
+![Serialization Benchmark](https://github.com/etishor/SerializationTests/blob/master/total.png) 
+
 ### Conclusion
 
 You can read my conclusions at [.NET Serialization Choices](http://www.erata.net/net/net-serialization-choices/)
