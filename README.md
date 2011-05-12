@@ -32,7 +32,7 @@ You can also take a look at [Gallio Test Report](http://dl.dropbox.com/u/2000125
 
 Basic benchmark results 
 
-![Serialization Benchmark](https://github.com/etishor/SerializationTests/blob/master/total.png) 
+![Serialization Benchmark](https://github.com/etishor/SerializationTests/blob/master/total.png?raw=true) 
 
 ### Conclusion
 
