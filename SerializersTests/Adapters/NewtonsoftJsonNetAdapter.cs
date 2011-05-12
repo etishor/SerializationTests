@@ -15,36 +15,32 @@ namespace SerializersTests.Adapters
             TypeNameHandling = TypeNameHandling.All
         };
 
-        public void Serialize<T>(Stream stream, T instance)
+        public virtual void Serialize<T>(Stream stream, T instance)
         {
             using (var streamWriter = new StreamWriter(stream, Encoding.UTF8))
+            using(var jsonWriter = new JsonTextWriter(streamWriter))
             {
-                this.Serialize(new JsonTextWriter(streamWriter), instance);
+                this.Serialize(jsonWriter, instance);
             }
         }
 
         protected virtual void Serialize(JsonWriter writer, object graph)
         {
-            using (writer)
-            {
-                this.serializer.Serialize(writer, graph);
-            }
+            this.serializer.Serialize(writer, graph);
         }
 
-        public T Deserialize<T>(System.IO.Stream stream)
+        public virtual T Deserialize<T>(System.IO.Stream stream)
         {
             using (StreamReader r = new StreamReader(stream))
+            using(var jsonReader = new JsonTextReader(r))
             {
-                return this.Deserialize<T>(new JsonTextReader(r));
+                return this.Deserialize<T>(jsonReader);
             }
         }
 
         protected virtual T Deserialize<T>(JsonReader reader)
         {
-            using (reader)
-            {
-                return serializer.Deserialize<T>(reader);
-            }
+            return serializer.Deserialize<T>(reader);
         }
     }
 }

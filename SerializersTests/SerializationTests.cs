@@ -180,7 +180,7 @@ namespace SerializersTests
             }
         }
 
-        private static IEnumerable<Type> GetSerializers()
+        public static IEnumerable<Type> GetSerializers()
         {
             return typeof(ISerializerAdapter).Assembly.GetTypes()
                 .Where(t => !t.IsInterface)
