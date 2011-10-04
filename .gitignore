@@ -3,6 +3,7 @@ bin
 *.user
 *.suo
 *.orig
+*.docstates
 output
 publish
 packages

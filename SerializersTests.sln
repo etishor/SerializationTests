@@ -1,14 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializersTests", "SerializersTests\SerializersTests.csproj", "{62837A28-F01C-4AD9-BA96-49A24C47BDBD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{89004AE4-D11E-4CEE-8B1F-C2F31A2F8F73}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization.Bench", "Serialization.Bench\Serialization.Bench.csproj", "{1331EA6B-3A0B-409D-98DB-CA8291206AEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializersTests", "SerializersTests\SerializersTests.csproj", "{62837A28-F01C-4AD9-BA96-49A24C47BDBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,16 +15,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|x86.ActiveCfg = Release|Any CPU
 		{1331EA6B-3A0B-409D-98DB-CA8291206AEA}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{1331EA6B-3A0B-409D-98DB-CA8291206AEA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{1331EA6B-3A0B-409D-98DB-CA8291206AEA}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -40,6 +25,16 @@ Global
 		{1331EA6B-3A0B-409D-98DB-CA8291206AEA}.Release|Mixed Platforms.Build.0 = Release|x86
 		{1331EA6B-3A0B-409D-98DB-CA8291206AEA}.Release|x86.ActiveCfg = Release|x86
 		{1331EA6B-3A0B-409D-98DB-CA8291206AEA}.Release|x86.Build.0 = Release|x86
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{62837A28-F01C-4AD9-BA96-49A24C47BDBD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
