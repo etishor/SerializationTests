@@ -123,6 +123,7 @@
     <Compile Include="IAssertEquality.cs" />
     <Compile Include="Messages\SerializableOnly.cs" />
     <Compile Include="Messages\UriField.cs" />
+    <Compile Include="Messages\UriWithQuotesAndSlashes.cs" />
     <Compile Include="SerializationTests.cs" />
     <Compile Include="Messages\PublicReadOnlyNamesInConstructor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,7 +2,7 @@
 <testProject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.gallio.org/">
   <testPackage shadowCopy="false" debug="false">
     <files>
-      <file>SerializersTests\bin\Debug\SerializersTests.dll</file>
+      <file>SerializersTests\bin\Release\SerializersTests.dll</file>
     </files>
     <hintDirectories />
     <excludedFrameworkIds />
