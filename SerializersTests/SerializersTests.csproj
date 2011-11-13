@@ -39,6 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\NServiceBus\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\lib\Raven.Json\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="MbUnit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\gallio\MbUnit.dll</HintPath>
@@ -55,8 +58,17 @@
     <Reference Include="protobuf-net">
       <HintPath>..\lib\protobuf-net\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Json">
-      <HintPath>..\lib\Raven.Json\Raven.Json.dll</HintPath>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\lib\Raven.Json\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Embedded">
+      <HintPath>..\lib\Raven.Json\Raven.Client.Embedded.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\lib\Raven.Json\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Tests">
+      <HintPath>..\lib\Raven.Json\Raven.Tests.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>..\lib\ServiceStack\ServiceStack.Text.dll</HintPath>
@@ -124,6 +136,7 @@
     <Compile Include="Messages\SerializableOnly.cs" />
     <Compile Include="Messages\UriField.cs" />
     <Compile Include="Messages\UriWithQuotesAndSlashes.cs" />
+    <Compile Include="RavenDbTests.cs" />
     <Compile Include="SerializationTests.cs" />
     <Compile Include="Messages\PublicReadOnlyNamesInConstructor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
