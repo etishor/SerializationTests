@@ -6,7 +6,6 @@ bin
 *.docstates
 output
 publish
-packages
 _ReSharper.*
 *.Resharper
 *.Cache

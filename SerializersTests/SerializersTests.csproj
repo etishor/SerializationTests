@@ -55,6 +55,9 @@
     <Reference Include="NServiceBus.Core">
       <HintPath>..\lib\NServiceBus\NServiceBus.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Polenter.SharpSerializer">
+      <HintPath>..\packages\SharpSerializer.2.16\lib\net20\Polenter.SharpSerializer.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\lib\protobuf-net\protobuf-net.dll</HintPath>
     </Reference>
@@ -85,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\BinaryFormatterAdapter.cs" />
+    <Compile Include="Adapters\SharpSerializerXmlAdapter.cs" />
     <Compile Include="Adapters\DataContractJsonSerializerAdapter.cs" />
     <Compile Include="Adapters\DataContractSerializerAdapter.cs" />
     <Compile Include="Adapters\JavascriptSerializerAdapter.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="Adapters\ProtocolBufersSerializerAdapter.cs" />
     <Compile Include="Adapters\RavenJsonAdapter.cs" />
     <Compile Include="Adapters\ServiceStackJsonSerializerAdapter.cs" />
+    <Compile Include="Adapters\SharpSerializerBinaryAdapter.cs" />
     <Compile Include="Adapters\SoapFormatterAdapter.cs" />
     <Compile Include="Adapters\XmlSerializerAdapter.cs" />
     <Compile Include="Helper.cs" />
@@ -140,6 +145,9 @@
     <Compile Include="SerializationTests.cs" />
     <Compile Include="Messages\PublicReadOnlyNamesInConstructor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

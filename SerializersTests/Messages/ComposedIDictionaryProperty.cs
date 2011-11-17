@@ -27,7 +27,7 @@ namespace SerializersTests.Messages
             Assert.IsNotNull(other);
             Assert.IsInstanceOfType<ComposedIDictionaryProperty>(other);
             ComposedIDictionaryProperty target = other as ComposedIDictionaryProperty;
-
+            Assert.IsNotNull(target.Value);
             Assert.AreEqual(this.Value.Count, target.Value.Count);
             foreach (var kvp in this.Value)
             {
