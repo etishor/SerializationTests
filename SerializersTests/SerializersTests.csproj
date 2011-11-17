@@ -46,6 +46,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\gallio\MbUnit.dll</HintPath>
     </Reference>
+    <Reference Include="MsgPack">
+      <HintPath>..\lib\msgpack\MsgPack.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\lib\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -88,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\BinaryFormatterAdapter.cs" />
+    <Compile Include="Adapters\MsgPackBoxingPackerAdapter.cs" />
     <Compile Include="Adapters\SharpSerializerXmlAdapter.cs" />
     <Compile Include="Adapters\DataContractJsonSerializerAdapter.cs" />
     <Compile Include="Adapters\DataContractSerializerAdapter.cs" />

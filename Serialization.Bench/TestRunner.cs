@@ -1,7 +1,8 @@
 ﻿
-using SerializersTests;
+using System;
 using System.Diagnostics;
 using System.IO;
+using SerializersTests;
 namespace Serialization.Bench
 {
     public static class TestRunner
@@ -10,28 +11,40 @@ namespace Serialization.Bench
             where T : IAssertEquality
         {
             RunResult result = new RunResult();
-            
+
             var w = Stopwatch.StartNew();
 
             byte[] data;
-            using (MemoryStream ms = new MemoryStream())
+            T output = default(T);
+            try
             {
-                var serW = Stopwatch.StartNew();
-                serializer.Serialize(new IndisposableStream(ms), instance);
-                result.Serialization = serW.Elapsed;
-                data = ms.ToArray();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    var serW = Stopwatch.StartNew();
+                    serializer.Serialize(new IndisposableStream(ms), instance);
+                    result.Serialization = serW.Elapsed;
+                    data = ms.ToArray();
+                }
+
+
+                using (MemoryStream ms = new MemoryStream(data))
+                {
+                    ms.Seek(0, SeekOrigin.Begin);
+                    var deserW = Stopwatch.StartNew();
+                    output = serializer.Deserialize<T>(new IndisposableStream(ms));
+                    result.Deserialization = deserW.Elapsed;
+                }
+                result.TotalTime = w.Elapsed;
+                instance.AssertEquality(output);
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x.Message);
+                result.Serialization = TimeSpan.FromSeconds(0);
+                result.Deserialization = TimeSpan.FromSeconds(0);
+                result.TotalTime = TimeSpan.FromSeconds(0);
             }
 
-            T output = default(T);
-            using (MemoryStream ms = new MemoryStream(data))
-            {
-                ms.Seek(0, SeekOrigin.Begin);
-                var deserW = Stopwatch.StartNew();
-                output = serializer.Deserialize<T>(new IndisposableStream(ms));
-                result.Deserialization = deserW.Elapsed;
-            }
-            result.TotalTime = w.Elapsed;
-            instance.AssertEquality(output);
             return result;
         }
     }
