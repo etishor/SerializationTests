@@ -11,6 +11,9 @@ namespace SerializersTests.Messages
     [ProtoContract]
     public class UriWithQuotesAndSlashes : IAssertEquality
     {
+		public const string UriQuotes = @"http://test.com/%22foo+bar%22";
+		public const string UriSlash = @"http://tes/?a=b\\c&d=e\";
+
         [DataMember]
         [ProtoMember(1)]
         public Uri ValueWithQuotes { get; set; }
@@ -23,8 +26,8 @@ namespace SerializersTests.Messages
         {
             return new UriWithQuotesAndSlashes
             {
-                ValueWithQuotes = new Uri("http://test.com/%22foo+bar%22"),
-                ValueWithSlashes = new Uri(@"http://tes/?a=b\\c&d=e\")
+                ValueWithQuotes = new Uri(UriQuotes),
+                ValueWithSlashes = new Uri(UriSlash)
             };
         }
 

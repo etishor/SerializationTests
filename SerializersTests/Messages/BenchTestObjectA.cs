@@ -22,7 +22,7 @@ namespace SerializersTests.Messages
             BenchTestObjectA instance = new BenchTestObjectA();
 
             instance.StringData = Helper.CreateRandomString(128);
-
+			instance.Integer = 100;
             List<string> data = new List<string>();
             for (int i = 0; i < 5; i++)
             {
@@ -54,6 +54,10 @@ namespace SerializersTests.Messages
         [DataMember]
         [ProtoMember(5)]
         public BenchTestObjectA[] Children { get; set; }
+
+		[DataMember]
+		[ProtoMember(6)]
+		public int Integer { get; set; }
 
         public void AssertEquality(object other)
         {

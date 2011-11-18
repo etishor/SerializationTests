@@ -8,16 +8,16 @@ namespace SerializersTests.Adapters
 {
     public class XmlSerializerAdapter : ISerializerAdapter
     {
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            serializer.Serialize(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			XmlSerializer serializer = new XmlSerializer(instance.GetType());
+			serializer.Serialize(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            return (T)serializer.Deserialize(stream);
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, Type type)
+		{
+			XmlSerializer serializer = new XmlSerializer(type);
+			return serializer.Deserialize(stream);
+		}
+	}
 }

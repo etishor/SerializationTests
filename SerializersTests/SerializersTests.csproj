@@ -52,10 +52,11 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\lib\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NServiceBus">
+    <Reference Include="NServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\lib\NServiceBus\NServiceBus.dll</HintPath>
     </Reference>
-    <Reference Include="NServiceBus.Core">
+    <Reference Include="NServiceBus.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\NServiceBus\NServiceBus.Core.dll</HintPath>
     </Reference>
     <Reference Include="Polenter.SharpSerializer">
@@ -88,9 +89,14 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TestDataGenerator">
+      <HintPath>..\packages\TestDataGenerator.0.0.3\lib\net40\TestDataGenerator.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\BinaryFormatterAdapter.cs" />
+    <Compile Include="Adapters\NServiceBusBsonSerializerAdapter.cs" />
+    <Compile Include="Adapters\NServiceBusJsonSerializerAdapter.cs" />
     <Compile Include="Adapters\MsgPackBoxingPackerAdapter.cs" />
     <Compile Include="Adapters\SharpSerializerXmlAdapter.cs" />
     <Compile Include="Adapters\DataContractJsonSerializerAdapter.cs" />
@@ -116,8 +122,10 @@
     <Compile Include="Messages\ComposedIDictionaryProperty.cs" />
     <Compile Include="Messages\CollectionOfStrings.cs" />
     <Compile Include="Messages\CollectionOfCustomObjects.cs" />
+    <Compile Include="Messages\InheritedObject.cs" />
     <Compile Include="Messages\ObjectPropertyWithCustomValue.cs" />
     <Compile Include="Messages\ObjectProperty.cs" />
+    <Compile Include="Messages\PublicReadonlyFieldWithNamesInConstructorNoAttributes.cs" />
     <Compile Include="Messages\SealedPublicReadOnlyNamesInConstructorNoAttributes.cs" />
     <Compile Include="Messages\IDictionaryProperty.cs" />
     <Compile Include="Messages\DictionaryProperty.cs" />

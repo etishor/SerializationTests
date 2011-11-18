@@ -8,16 +8,16 @@ namespace SerializersTests.Adapters
 {
     public class DataContractJsonSerializerAdapter : ISerializerAdapter
     {
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
-            serializer.WriteObject(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			DataContractJsonSerializer serializer = new DataContractJsonSerializer(instance.GetType());
+			serializer.WriteObject(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
-            return (T)serializer.ReadObject(stream);
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, Type type)
+		{
+			DataContractJsonSerializer serializer = new DataContractJsonSerializer(type);
+			return serializer.ReadObject(stream);
+		}
+	}
 }

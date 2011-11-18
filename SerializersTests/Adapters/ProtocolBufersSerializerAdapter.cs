@@ -7,15 +7,15 @@ namespace SerializersTests.Adapters
 {
     public class ProtocolBufersSerializerAdapter : ISerializerAdapter
     {
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            ProtoBuf.Serializer.Serialize(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			ProtoBuf.Serializer.NonGeneric.Serialize(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            return ProtoBuf.Serializer.Deserialize<T>(stream);
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, Type type)
+		{
+			return ProtoBuf.Serializer.NonGeneric.Deserialize(type, stream);
+		}
+	}
 
 }

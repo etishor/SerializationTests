@@ -4,6 +4,161 @@
     <name>NServiceBus</name>
   </assembly>
   <members>
+    <member name="T:NServiceBus.Address">
+      <summary>
+             Abstraction for an address on the NServiceBus network.
+            </summary>
+    </member>
+    <member name="M:NServiceBus.Address.InitializeLocalAddress(System.String)">
+      <summary>
+            Sets the address of this endpoint.
+            Will throw an exception if overwriting a previous value (but value will still be set).
+            </summary>
+      <param name="queue">
+      </param>
+    </member>
+    <member name="M:NServiceBus.Address.OverrideDefaultMachine(System.String)">
+      <summary>
+            Sets the address mode, can only be done as long as the local address is not been initialized.By default the default machine equals Environment.MachineName
+            </summary>
+      <param name="machineName">
+      </param>
+      <exception cref="T:System.InvalidOperationException">
+      </exception>
+    </member>
+    <member name="M:NServiceBus.Address.InitializeAddressMode(NServiceBus.AddressMode)">
+      <summary>
+            Sets the name of the machine to be used when none is specified in the address.
+            </summary>
+      <param name="mode">
+      </param>
+      <exception cref="T:System.InvalidOperationException">
+      </exception>
+    </member>
+    <member name="M:NServiceBus.Address.Parse(System.String)">
+      <summary>
+            Parses a string and returns an Address.
+            </summary>
+      <param name="destination">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.Address.#ctor(System.String,System.String)">
+      <summary>
+             Instantiate a new Address for a known queue on a given machine.
+            </summary>
+      <param name="queueName">
+      </param>
+      <param name="machineName">
+      </param>
+    </member>
+    <member name="M:NServiceBus.Address.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Deserializes an Address.
+            </summary>
+      <param name="info">
+      </param>
+      <param name="context">
+      </param>
+    </member>
+    <member name="M:NServiceBus.Address.op_Implicit(System.String)~NServiceBus.Address">
+      <summary>
+            Implicit cast from string to Address.
+            </summary>
+      <param name="s">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.Address.op_Implicit(NServiceBus.Address)~System.String">
+      <summary>
+            Implicit cast from Address to string.
+            </summary>
+      <param name="a">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.Address.SubScope(System.String)">
+      <summary>
+            Creates a new Address whose Queue is derived from the Queue of the existing Address
+            together with the provided qualifier. For example: queue.qualifier@machine
+            </summary>
+      <param name="qualifier">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.Address.GetHashCode">
+      <summary>
+            Provides a hash code of the Address.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.Address.ToString">
+      <summary>
+            Returns a string representation of the address.
+            </summary>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.Address.PreventChanges">
+      <summary>
+            Prevents changes to all addresses.
+            </summary>
+    </member>
+    <member name="M:NServiceBus.Address.Equals(System.Object)">
+      <summary>
+            Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
+            </summary>
+      <returns>
+            true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />; otherwise, false.
+            </returns>
+      <param name="obj">The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" />. </param>
+      <filterpriority>2</filterpriority>
+    </member>
+    <member name="P:NServiceBus.Address.Local">
+      <summary>
+            Get the address of this endpoint.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.Address.Self">
+      <summary>
+            Get the address of this endpoint.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.Address.Undefined">
+      <summary>
+            Get the address of this endpoint.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.Address.Queue">
+      <summary>
+            The (lowercase) name of the queue not including the name of the machine or location depending on the address mode.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.Address.Machine">
+      <summary>
+            The (lowercase) name of the machine or the (normal) name of the location depending on the address mode.
+            </summary>
+    </member>
+    <member name="T:NServiceBus.AddressMode">
+      <summary>
+            Determines how the azure location behaves
+            </summary>
+    </member>
+    <member name="F:NServiceBus.AddressMode.Local">
+      <summary>
+            Addressing behavior is confirm to local queueing policies, eg. MSMQ
+            </summary>
+    </member>
+    <member name="F:NServiceBus.AddressMode.Remote">
+      <summary>
+            Addressing behavior is confirm to remote queueing policies, eg. Azure
+            </summary>
+    </member>
     <member name="T:NServiceBus.CompletionResult">
       <summary>
             The object found in <see cref="T:System.IAsyncResult" />.AsyncState returned by the <see cref="T:System.AsyncCallback" /> 
@@ -12,12 +167,12 @@
     </member>
     <member name="P:NServiceBus.CompletionResult.ErrorCode">
       <summary>
-            If <see cref="M:NServiceBus.IBus.Return(System.Int32)" /> was called, this contains the value passed to it.
+            If <see cref="M:NServiceBus.IBus.Return``1(``0)" /> was called, this contains the value passed to it.
             </summary>
     </member>
     <member name="P:NServiceBus.CompletionResult.Messages">
       <summary>
-            If <see cref="M:NServiceBus.IBus.Reply(NServiceBus.IMessage[])" /> was called, this contains the messages passed to it.
+            If <see cref="M:NServiceBus.IBus.Reply(System.Object[])" /> was called, this contains the messages passed to it.
             </summary>
     </member>
     <member name="P:NServiceBus.CompletionResult.State">
@@ -30,15 +185,84 @@
             Class containing extension methods for base class libraries for using interface-based messages.
             </summary>
     </member>
+    <member name="F:NServiceBus.ExtensionMethods.IsMessageTypeAction">
+      <summary>
+            The function used to determine whether a type is a message type.
+            </summary>
+    </member>
+    <member name="F:NServiceBus.ExtensionMethods.IsCommandTypeAction">
+      <summary>
+            The function used to determine whether a type is a command type.
+            </summary>
+    </member>
+    <member name="F:NServiceBus.ExtensionMethods.IsEventTypeAction">
+      <summary>
+            The function used to determine whether a type is a event type.
+            </summary>
+    </member>
     <member name="M:NServiceBus.ExtensionMethods.Add``1(System.Collections.Generic.IList{``0},System.Action{``0})">
       <summary>
             Instantiates an instance of T and adds it to the list.
             </summary>
       <typeparam name="T">The type to instantiate.</typeparam>
       <param name="list">The list to which to add the new element</param>
-      <param name="constructor">An action for setting properties of the created instance.</param>
+      <param name="initializer">An action for setting properties of the created instance.</param>
     </member>
-    <member name="M:NServiceBus.ExtensionMethods.GetHeader(NServiceBus.IMessage,System.String)">
+    <member name="M:NServiceBus.ExtensionMethods.IsMessage(System.Object)">
+      <summary>
+            Returns true if the given object is a message.
+            </summary>
+      <param name="o">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.IsMessageType(System.Type)">
+      <summary>
+            Returns true if the given type is a message type.
+            </summary>
+      <param name="t">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.IsCommand(System.Object)">
+      <summary>
+            Returns true if the given object is a command.
+            </summary>
+      <param name="o">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.IsCommandType(System.Type)">
+      <summary>
+            Returns true if the given type is a command type.
+            </summary>
+      <param name="t">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.IsEvent(System.Object)">
+      <summary>
+            Returns true if the given object is a event.
+            </summary>
+      <param name="o">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.IsEventType(System.Type)">
+      <summary>
+            Returns true if the given type is a event type.
+            </summary>
+      <param name="t">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.GetHeader(System.Object,System.String)">
       <summary>
             Get the header with the given key. Cannot be used to change its value.
             </summary>
@@ -49,7 +273,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:NServiceBus.ExtensionMethods.GetHttpFromHeader(NServiceBus.IMessage)">
+    <member name="M:NServiceBus.ExtensionMethods.GetHttpFromHeader(System.Object)">
       <summary>
             If the source of this message was an Http endpoint, returns its address
             otherwise returns null.
@@ -59,7 +283,7 @@
       <returns>
       </returns>
     </member>
-    <member name="M:NServiceBus.ExtensionMethods.GetHttpToHeader(NServiceBus.IMessage)">
+    <member name="M:NServiceBus.ExtensionMethods.GetHttpToHeader(System.Object)">
       <summary>
             If the target destination of this message is an Http endpoint,
             return the address of that target, otherwise null.
@@ -69,7 +293,25 @@
       <returns>
       </returns>
     </member>
-    <member name="M:NServiceBus.ExtensionMethods.SetHeader(NServiceBus.IMessage,System.String,System.String)">
+    <member name="M:NServiceBus.ExtensionMethods.GetDestinationSitesHeader(System.Object)">
+      <summary>
+            Returns the list of destination sites for this message
+            </summary>
+      <param name="msg">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.GetOriginatingSiteHeader(System.Object)">
+      <summary>
+            Returns the sitekey for the site for which this message originated, null if this message wasn't sent via the gateway
+            </summary>
+      <param name="msg">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.SetHeader(System.Object,System.String,System.String)">
       <summary>
             Sets the value of the header for the given key.
             </summary>
@@ -80,7 +322,27 @@
       <param name="value">
       </param>
     </member>
-    <member name="M:NServiceBus.ExtensionMethods.SetHttpFromHeader(NServiceBus.IMessage,System.String)">
+    <member name="M:NServiceBus.ExtensionMethods.SetDestinationSitesHeader(System.Object,System.String)">
+      <summary>
+            Sets the list of sites to where this message should be routed
+            This method is reserved for the NServiceBus Gateway.
+            </summary>
+      <param name="msg">
+      </param>
+      <param name="value">
+      </param>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.SetOriginatingSiteHeader(System.Object,System.String)">
+      <summary>
+            Sets the originating site header
+            This method is reserved for the NServiceBus Gateway.
+            </summary>
+      <param name="msg">
+      </param>
+      <param name="value">
+      </param>
+    </member>
+    <member name="M:NServiceBus.ExtensionMethods.SetHttpFromHeader(System.Object,System.String)">
       <summary>
             Sets the Http address from which this message was received.
             This method is reserved for the NServiceBus Gateway.
@@ -90,7 +352,7 @@
       <param name="value">
       </param>
     </member>
-    <member name="M:NServiceBus.ExtensionMethods.SetHttpToHeader(NServiceBus.IMessage,System.String)">
+    <member name="M:NServiceBus.ExtensionMethods.SetHttpToHeader(System.Object,System.String)">
       <summary>
             Sets the Http address to which this message should be sent.
             Requires the use of the NServiceBus Gateway.
@@ -100,7 +362,7 @@
       <param name="value">
       </param>
     </member>
-    <member name="M:NServiceBus.ExtensionMethods.CopyHeaderFromRequest(NServiceBus.IMessage,System.String)">
+    <member name="M:NServiceBus.ExtensionMethods.CopyHeaderFromRequest(System.Object,System.String)">
       <summary>
             Gets the value of the header with the given key and sets it for this message.
             </summary>
@@ -124,6 +386,21 @@
             The object used to see whether headers requested are for the handled message.
             </summary>
     </member>
+    <member name="P:NServiceBus.ExtensionMethods.SetHeaderAction">
+      <summary>
+            The action used to set the header in the <see cref="M:NServiceBus.ExtensionMethods.SetHeader(System.Object,System.String,System.String)" /> method.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.ExtensionMethods.GetHeaderAction">
+      <summary>
+            The action used to get the header value in the <see cref="M:NServiceBus.ExtensionMethods.GetHeader(System.Object,System.String)" /> method.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.ExtensionMethods.GetStaticOutgoingHeadersAction">
+      <summary>
+            The action used to get all the headers for a message.
+            </summary>
+    </member>
     <member name="T:NServiceBus.Headers">
       <summary>
             Static class containing headers used by NServiceBus.
@@ -139,6 +416,30 @@
             Header for specifying to which Http endpoint the message should be delivered.
             </summary>
     </member>
+    <member name="F:NServiceBus.Headers.RouteTo">
+      <summary>
+            Header for specifying to which queue behind the http gateway should the message be delivered.
+            This header is considered an applicative header.
+            </summary>
+    </member>
+    <member name="F:NServiceBus.Headers.DestinationSites">
+      <summary>
+            Header for specifying to which sites the gateway should send the message. For multiple
+            sites a comma separated list can be used
+            This header is considered an applicative header.
+            </summary>
+    </member>
+    <member name="F:NServiceBus.Headers.OriginatingSite">
+      <summary>
+            Header for specifying the key for the site where this message originated. 
+            This header is considered an applicative header.
+            </summary>
+    </member>
+    <member name="F:NServiceBus.Headers.HeaderName">
+      <summary>
+            Prefix included on the wire when sending applicative headers.
+            </summary>
+    </member>
     <member name="T:NServiceBus.IAuthorizeSubscriptions">
       <summary>
             Implementer will be called by the infrastructure in order to authorize
@@ -147,30 +448,26 @@
             Infrastructure automatically registers one implementing type in the container as a singleton.
             </summary>
     </member>
-    <member name="M:NServiceBus.IAuthorizeSubscriptions.AuthorizeSubscribe(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+    <member name="M:NServiceBus.IAuthorizeSubscriptions.AuthorizeSubscribe(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
       <summary>
             Return true if the client endpoint is to be allowed to subscribe to the given message type.
-            </summary>
+            Implementors can access the impersonated user via <see cref="M:System.Security.Principal.WindowsIdentity.GetCurrent" /></summary>
       <param name="messageType">
       </param>
       <param name="clientEndpoint">
-      </param>
-      <param name="clientWindowsIdentity">
       </param>
       <param name="headers">
       </param>
       <returns>
       </returns>
     </member>
-    <member name="M:NServiceBus.IAuthorizeSubscriptions.AuthorizeUnsubscribe(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+    <member name="M:NServiceBus.IAuthorizeSubscriptions.AuthorizeUnsubscribe(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
       <summary>
             Return true if the client endpoint is to be allowed to unsubscribe to the given message type.
             </summary>
       <param name="messageType">
       </param>
       <param name="clientEndpoint">
-      </param>
-      <param name="clientWindowsIdentity">
       </param>
       <param name="headers">
       </param>
@@ -239,7 +536,7 @@
             </summary>
       <typeparam name="T">The type of message to subscribe to.</typeparam>
     </member>
-    <member name="M:NServiceBus.IBus.Subscribe(System.Type,System.Predicate{NServiceBus.IMessage})">
+    <member name="M:NServiceBus.IBus.Subscribe(System.Type,System.Predicate{System.Object})">
       <summary>
             Subscribes to receive published messages of the specified type.
             When messages arrive, the condition is evaluated to see if they
@@ -261,8 +558,7 @@
       <summary>
             Unsubscribes from receiving published messages of the specified type.
             </summary>
-      <param name="messageType">
-      </param>
+      <param name="messageType">The type of message to subscribe to.</param>
     </member>
     <member name="M:NServiceBus.IBus.Unsubscribe``1">
       <summary>
@@ -270,7 +566,7 @@
             </summary>
       <typeparam name="T">The type of message to unsubscribe from.</typeparam>
     </member>
-    <member name="M:NServiceBus.IBus.SendLocal(NServiceBus.IMessage[])">
+    <member name="M:NServiceBus.IBus.SendLocal(System.Object[])">
       <summary>
             Sends the list of messages back to the current bus.
             </summary>
@@ -283,7 +579,7 @@
       <typeparam name="T">The type of message, usually an interface.</typeparam>
       <param name="messageConstructor">An action which initializes properties of the message</param>
     </member>
-    <member name="M:NServiceBus.IBus.Send(NServiceBus.IMessage[])">
+    <member name="M:NServiceBus.IBus.Send(System.Object[])">
       <summary>
             Sends the list of provided messages.
             </summary>
@@ -303,12 +599,21 @@
             The message will be sent to the destination configured for T
             </remarks>
     </member>
-    <member name="M:NServiceBus.IBus.Send(System.String,NServiceBus.IMessage[])">
+    <member name="M:NServiceBus.IBus.Send(System.String,System.Object[])">
       <summary>
             Sends the list of provided messages.
             </summary>
       <param name="destination">
             The address of the destination to which the messages will be sent.
+            </param>
+      <param name="messages">The list of messages to send.</param>
+    </member>
+    <member name="M:NServiceBus.IBus.Send(NServiceBus.Address,System.Object[])">
+      <summary>
+            Sends the list of provided messages.
+            </summary>
+      <param name="address">
+            The address to which the messages will be sent.
             </param>
       <param name="messages">The list of messages to send.</param>
     </member>
@@ -322,12 +627,34 @@
       <returns>
       </returns>
     </member>
-    <member name="M:NServiceBus.IBus.Send(System.String,System.String,NServiceBus.IMessage[])">
+    <member name="M:NServiceBus.IBus.Send``1(NServiceBus.Address,System.Action{``0})">
+      <summary>
+            Instantiates a message of type T and sends it to the given address.
+            </summary>
+      <typeparam name="T">The type of message, usually an interface</typeparam>
+      <param name="address">The address to which the message will be sent.</param>
+      <param name="messageConstructor">An action which initializes properties of the message</param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.IBus.Send(System.String,System.String,System.Object[])">
       <summary>
             Sends the messages to the destination as well as identifying this
             as a response to a message containing the Id found in correlationId.
             </summary>
       <param name="destination">
+      </param>
+      <param name="correlationId">
+      </param>
+      <param name="messages">
+      </param>
+    </member>
+    <member name="M:NServiceBus.IBus.Send(NServiceBus.Address,System.String,System.Object[])">
+      <summary>
+            Sends the messages to the given address as well as identifying this
+            as a response to a message containing the Id found in correlationId.
+            </summary>
+      <param name="address">
       </param>
       <param name="correlationId">
       </param>
@@ -349,7 +676,34 @@
       <param name="messageConstructor">
       </param>
     </member>
-    <member name="M:NServiceBus.IBus.Reply(NServiceBus.IMessage[])">
+    <member name="M:NServiceBus.IBus.Send``1(NServiceBus.Address,System.String,System.Action{``0})">
+      <summary>
+            Instantiates a message of the type T using the given messageConstructor,
+            and sends it to the given address identifying it as a response to a message
+            containing the Id found in correlationId.
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+      <param name="address">
+      </param>
+      <param name="correlationId">
+      </param>
+      <param name="messageConstructor">
+      </param>
+    </member>
+    <member name="M:NServiceBus.IBus.SendToSites(System.Collections.Generic.IEnumerable{System.String},System.Object[])">
+      <summary>
+            Sends the messages to all sites with matching site keys registered with the gateway.
+            The gateway is assumed to be located at the master node. 
+            </summary>
+      <param name="siteKeys">
+      </param>
+      <param name="messages">
+      </param>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.IBus.Reply(System.Object[])">
       <summary>
             Sends all messages to the endpoint which sent the message currently being handled on this thread.
             </summary>
@@ -357,17 +711,20 @@
     </member>
     <member name="M:NServiceBus.IBus.Reply``1(System.Action{``0})">
       <summary>
-            Instantiates a message of type T and performs a regular <see cref="M:NServiceBus.IBus.Reply(NServiceBus.IMessage[])" />.
+            Instantiates a message of type T and performs a regular <see cref="M:NServiceBus.IBus.Reply(System.Object[])" />.
             </summary>
       <typeparam name="T">The type of message, usually an interface</typeparam>
       <param name="messageConstructor">An action which initializes properties of the message</param>
     </member>
-    <member name="M:NServiceBus.IBus.Return(System.Int32)">
+    <member name="M:NServiceBus.IBus.Return``1(``0)">
       <summary>
             Returns a completion message with the specified error code to the sender
-            of the message being handled.
+            of the message being handled. The type T can only be an enum or an integer.
             </summary>
-      <param name="errorCode">A code specifying the result.</param>
+      <typeparam name="T">
+      </typeparam>
+      <param name="errorEnum">
+      </param>
     </member>
     <member name="M:NServiceBus.IBus.HandleCurrentMessageLater">
       <summary>
@@ -418,75 +775,42 @@
       <param name="state">State that will be passed to the callback method.</param>
       <returns>An IAsyncResult useful for integration with ASP.NET async tasks.</returns>
     </member>
-    <member name="M:NServiceBus.ICallback.Register(System.Action{System.Int32})">
-      <summary>
-            Registers a callback to be invoked when a response arrives to the message sent.
-            Not designed for web scenarios.
-            </summary>
-      <param name="callback">
-      </param>
-    </member>
     <member name="M:NServiceBus.ICallback.Register``1(System.Action{``0})">
       <summary>
             Registers a callback to be invoked when a response arrives to the message sent.
-            The return code is casted to the given enumerated type - T.
+            The return code is cast to the given enumerated type - T.
             </summary>
-      <typeparam name="T">An enumeration type.</typeparam>
+      <typeparam name="T">An enumeration type or an integer.</typeparam>
       <param name="callback">
       </param>
     </member>
-    <member name="M:NServiceBus.ICallback.RegisterWebCallback(System.Action{System.Int32},System.Object)">
+    <member name="M:NServiceBus.ICallback.Register``1(System.Action{``0},System.Object)">
       <summary>
             Registers a callback to be invoked when a response arrives to the message sent.
-            Designed specifically for web scenarios so that you don't need to write PageAsyncTasks.
-            Only works when the callback is on the Page object itself.
+            The return code is cast to the given enumerated type - T.
+            Pass either a System.Web.UI.Page or a System.Web.Mvc.AsyncController as the synchronizer.
             </summary>
+      <typeparam name="T">
+      </typeparam>
       <param name="callback">
       </param>
-      <param name="state">
-      </param>
-    </member>
-    <member name="M:NServiceBus.ICallback.RegisterWebCallback(System.Action{System.Int32},System.Object,System.Web.UI.Page)">
-      <summary>
-            Registers a callback to be invoked when a response arrives to the message sent.
-            Designed specifically for web scenarios so that you don't need to write PageAsyncTasks.
-            </summary>
-      <param name="callback">
-      </param>
-      <param name="state">
-      </param>
-      <param name="page">
-      </param>
-    </member>
-    <member name="M:NServiceBus.ICallback.RegisterWebCallback``1(System.Action{``0},System.Object)">
-      <summary>
-            Registers a callback to be invoked when a response arrives to the message sent.
-            Designed specifically for web scenarios so that you don't need to write PageAsyncTasks.
-            Only works when the callback is on the Page object itself.
-            </summary>
-      <typeparam name="T">An enumeration type.</typeparam>
-      <param name="callback">
-      </param>
-      <param name="state">
-      </param>
-    </member>
-    <member name="M:NServiceBus.ICallback.RegisterWebCallback``1(System.Action{``0},System.Object,System.Web.UI.Page)">
-      <summary>
-            Registers a callback to be invoked when a response arrives to the message sent.
-            Designed specifically for web scenarios so that you don't need to write PageAsyncTasks.
-            </summary>
-      <typeparam name="T">An enumeration type.</typeparam>
-      <param name="callback">
-      </param>
-      <param name="state">
-      </param>
-      <param name="page">
+      <param name="synchronizer">
       </param>
     </member>
     <member name="T:NServiceBus.IMessage">
       <summary>
             Marker interface to indicate that a class is a message suitable
             for transmission and handling by an NServiceBus.
+            </summary>
+    </member>
+    <member name="T:NServiceBus.ICommand">
+      <summary>
+            Marker interface to indicate that a class is a command message
+            </summary>
+    </member>
+    <member name="T:NServiceBus.IEvent">
+      <summary>
+            Marker interface to indicate that a class is a event message
             </summary>
     </member>
     <member name="T:NServiceBus.RecoverableAttribute">
@@ -547,6 +871,16 @@
             Returns the address of the endpoint that sent this message.
             </summary>
     </member>
+    <member name="P:NServiceBus.IMessageContext.ReplyToAddress">
+      <summary>
+            The address of the endpoint that sent the current message being handled.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.IMessageContext.TimeSent">
+      <summary>
+            Returns the time at which the message was sent.
+            </summary>
+    </member>
     <member name="P:NServiceBus.IMessageContext.Headers">
       <summary>
             Gets the list of key/value pairs found in the header of the message.
@@ -595,6 +929,84 @@
             and may be called after <see cref="M:NServiceBus.IMessageModule.HandleEndMessage" />.
             </summary>
     </member>
+    <member name="T:NServiceBus.ISpecifyMessageHandlerOrdering">
+      <summary>
+            Specify the order in which message handlers will be invoked.
+            </summary>
+    </member>
+    <member name="M:NServiceBus.ISpecifyMessageHandlerOrdering.SpecifyOrder(NServiceBus.Order)">
+      <summary>
+            In this method, use the order object to specify the order 
+            in which message handlers will be activated.
+            </summary>
+      <param name="order">
+      </param>
+    </member>
+    <member name="T:NServiceBus.Order">
+      <summary>
+            Used to specify the order in which message handlers will be activated.
+            </summary>
+    </member>
+    <member name="M:NServiceBus.Order.SpecifyFirst``1">
+      <summary>
+            Specifies that the given type will be activated before all others.
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="M:NServiceBus.Order.Specify``1">
+      <summary>
+            Obselete - use SpecifyFirst instead.
+            </summary>
+      <typeparam name="TFirst">
+      </typeparam>
+    </member>
+    <member name="M:NServiceBus.Order.Specify``1(NServiceBus.First{``0})">
+      <summary>
+            Specifies an ordering of multiple types using the syntax:
+            First{H1}.Then{H2}().AndThen{H3}()... etc
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+      <param name="ordering">
+      </param>
+    </member>
+    <member name="P:NServiceBus.Order.Types">
+      <summary>
+             Gets the types whose order has been specified.
+            </summary>
+    </member>
+    <member name="T:NServiceBus.First`1">
+      <summary>
+            Used to indicate the order in which handler types are to run.
+            
+            Not thread safe.
+            </summary>
+      <typeparam name="T">The type which will run first.</typeparam>
+    </member>
+    <member name="M:NServiceBus.First`1.Then``1">
+      <summary>
+            Specifies the type which will run next.
+            </summary>
+      <typeparam name="K">
+      </typeparam>
+      <returns>
+      </returns>
+    </member>
+    <member name="M:NServiceBus.First`1.AndThen``1">
+      <summary>
+            Specifies the type which will run next
+            </summary>
+      <typeparam name="K">
+      </typeparam>
+      <returns>
+      </returns>
+    </member>
+    <member name="P:NServiceBus.First`1.Types">
+      <summary>
+            Returns the ordered list of types specified.
+            </summary>
+    </member>
     <member name="T:NServiceBus.IStartableBus">
       <summary>
             The interface used for starting and stopping an IBus.
@@ -619,22 +1031,24 @@
             Event raised when the bus is started.
             </summary>
     </member>
-    <member name="T:NServiceBus.Messages.ReadyMessage">
-      <summary>
-            Defines a message indicating that a transport is ready to
-            receive a message.
-            </summary>
-    </member>
-    <member name="P:NServiceBus.Messages.ReadyMessage.ClearPreviousFromThisAddress">
-      <summary>
-            Exposes whether or not previous ready messages from the same
-            sender should be cleared.
-            </summary>
-    </member>
     <member name="T:NServiceBus.WireEncryptedString">
       <summary>
             A string whose value will be encrypted when sent over the wire.
             </summary>
+    </member>
+    <member name="M:NServiceBus.WireEncryptedString.#ctor">
+      <summary>
+            Default contstructor
+            </summary>
+    </member>
+    <member name="M:NServiceBus.WireEncryptedString.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Deseralizing contructor
+            </summary>
+      <param name="info">
+      </param>
+      <param name="context">
+      </param>
     </member>
     <member name="M:NServiceBus.WireEncryptedString.op_Implicit(NServiceBus.WireEncryptedString)~System.String">
       <summary>
@@ -654,9 +1068,38 @@
       <returns>
       </returns>
     </member>
+    <member name="M:NServiceBus.WireEncryptedString.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Method for making default XML serialization work properly for this type.
+            </summary>
+      <param name="info">
+      </param>
+      <param name="context">
+      </param>
+    </member>
     <member name="P:NServiceBus.WireEncryptedString.Value">
       <summary>
             The unencrypted string.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.WireEncryptedString.EncryptedValue">
+      <summary>
+            The encrypted value of this string
+            </summary>
+    </member>
+    <member name="T:NServiceBus.EncryptedValue">
+      <summary>
+            Class used to represent an encrypted value with an initialization vector.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.EncryptedValue.EncryptedBase64Value">
+      <summary>
+            The encrypted value represented as a Base64 string.
+            </summary>
+    </member>
+    <member name="P:NServiceBus.EncryptedValue.Base64Iv">
+      <summary>
+            The initialization vector represented as a Base64 string.
             </summary>
     </member>
     <member name="T:NServiceBus.Saga.HasCompleted">
@@ -730,6 +1173,19 @@
             </summary>
       <typeparam name="M">
       </typeparam>
+    </member>
+    <member name="T:NServiceBus.Saga.IHandleSagaNotFound">
+      <summary>
+            Implementors will be invoked when a message arrives that should have been processed
+            by a saga, but no existing saga was found. This does not include the scenario when
+            a saga will be created for the given message type.
+            </summary>
+    </member>
+    <member name="M:NServiceBus.Saga.IHandleSagaNotFound.Handle(System.Object)">
+      <summary>
+            Implementors will implement this method, likely using an injected IBus
+            to send responses to the client who sent the message.
+            </summary>
     </member>
     <member name="T:NServiceBus.Saga.ITimeoutable">
       <summary>
@@ -935,7 +1391,7 @@
       <param name="withState">
       </param>
     </member>
-    <member name="M:NServiceBus.Saga.Saga`1.ReplyToOriginator(NServiceBus.IMessage[])">
+    <member name="M:NServiceBus.Saga.Saga`1.ReplyToOriginator(System.Object[])">
       <summary>
             Sends the given messages using the bus to the endpoint that caused this saga to start.
             </summary>
@@ -982,7 +1438,7 @@
     <member name="P:NServiceBus.Saga.Saga`1.Bus">
       <summary>
             Bus object used for retrieving the sender endpoint which caused this saga to start.
-            Necessary for <see cref="M:NServiceBus.Saga.Saga`1.ReplyToOriginator(NServiceBus.IMessage[])" />.
+            Necessary for <see cref="M:NServiceBus.Saga.Saga`1.ReplyToOriginator(System.Object[])" />.
             </summary>
     </member>
     <member name="P:NServiceBus.Saga.Saga`1.SagaMessageFindingConfiguration">
@@ -1075,7 +1531,7 @@
             Interface used for serializing and deserializing messages.
             </summary>
     </member>
-    <member name="M:NServiceBus.Serialization.IMessageSerializer.Serialize(NServiceBus.IMessage[],System.IO.Stream)">
+    <member name="M:NServiceBus.Serialization.IMessageSerializer.Serialize(System.Object[],System.IO.Stream)">
       <summary>
             Serializes the given set of messages into the given stream.
             </summary>

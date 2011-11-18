@@ -10,14 +10,14 @@ namespace SerializersTests.Adapters
     {
         private readonly SharpSerializer serializer = new SharpSerializer(true);
 
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            serializer.Serialize(instance, stream);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			serializer.Serialize(instance, stream);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            return (T)serializer.Deserialize(stream);
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, System.Type type)
+		{
+			return serializer.Deserialize(stream);
+		}
+	}
 }

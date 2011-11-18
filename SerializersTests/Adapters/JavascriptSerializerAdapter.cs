@@ -10,20 +10,20 @@ namespace SerializersTests.Adapters
     {
         private readonly JavaScriptSerializer serializer = new JavaScriptSerializer() { MaxJsonLength = int.MaxValue, RecursionLimit = int.MaxValue };
 
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            using(StreamWriter writer = new StreamWriter(stream))
-            {
-                writer.Write(serializer.Serialize(instance));
-            }
-        }
+		public void Serialize(Stream stream, object instance)
+		{
+			using (StreamWriter writer = new StreamWriter(stream))
+			{
+				writer.Write(serializer.Serialize(instance));
+			}
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return serializer.Deserialize<T>(reader.ReadToEnd());
-            }
-        }
-    }
+		public object Deserialize(Stream stream, Type type)
+		{
+			using (StreamReader reader = new StreamReader(stream))
+			{
+				return serializer.Deserialize(reader.ReadToEnd(), type);
+			}
+		}
+	}
 }

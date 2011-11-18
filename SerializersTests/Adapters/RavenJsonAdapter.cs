@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Raven.Json.Linq;
 using Newtonsoft.Json;
-using System.IO;
+using Raven.Json.Linq;
 
 namespace SerializersTests.Adapters
 {
@@ -15,12 +11,12 @@ namespace SerializersTests.Adapters
             RavenJToken.FromObject(graph, base.serializer).WriteTo(writer);
         }
 
-        protected override T Deserialize<T>(JsonReader reader)
-        {
-            using (RavenJTokenReader tokenReader = new RavenJTokenReader(RavenJToken.ReadFrom(reader)))
-            {
-                return base.Deserialize<T>(tokenReader);
-            }
-        }
+		protected override object Deserialize(JsonReader reader, Type type)
+		{
+			using (RavenJTokenReader tokenReader = new RavenJTokenReader(RavenJToken.ReadFrom(reader)))
+			{
+				return base.Deserialize(tokenReader, type);
+			}
+		}
     }
 }

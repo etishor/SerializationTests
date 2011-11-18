@@ -31,7 +31,7 @@ namespace Serialization.Bench
                 {
                     ms.Seek(0, SeekOrigin.Begin);
                     var deserW = Stopwatch.StartNew();
-                    output = serializer.Deserialize<T>(new IndisposableStream(ms));
+					output = (T)serializer.Deserialize(new IndisposableStream(ms), typeof(T));
                     result.Deserialization = deserW.Elapsed;
                 }
                 result.TotalTime = w.Elapsed;

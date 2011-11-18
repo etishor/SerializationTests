@@ -9,44 +9,44 @@ namespace SerializersTests.Adapters
     {
         private readonly MsgPack.BoxingPacker packer = new MsgPack.BoxingPacker();
 
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            packer.Pack(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			packer.Pack(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            return (T)packer.Unpack(stream);
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, System.Type type)
+		{
+			return packer.Unpack(stream);
+		}
+	}
 
     public class MsgPackCompiledPackerAdapter : ISerializerAdapter
     {
         private readonly MsgPack.CompiledPacker packer = new MsgPack.CompiledPacker(true);
 
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            packer.Pack(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			packer.Pack(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            return packer.Unpack<T>(stream);
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, System.Type type)
+		{
+			return packer.Unpack(type,stream);
+		}
+	}
 
     public class MsgPackObjectPackerAdapter : ISerializerAdapter
     {
         private readonly MsgPack.ObjectPacker packer = new MsgPack.ObjectPacker();
 
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            packer.Pack(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			packer.Pack(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            return packer.Unpack<T>(stream);
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, System.Type type)
+		{
+			return packer.Unpack(type,stream);
+		}
+	}
 }

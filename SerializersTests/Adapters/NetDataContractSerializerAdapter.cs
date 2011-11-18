@@ -8,16 +8,16 @@ namespace SerializersTests.Adapters
 {
     public class NetDataContractSerializerAdapter : ISerializerAdapter
     {
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            NetDataContractSerializer serializer = new NetDataContractSerializer();
-            serializer.WriteObject(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			NetDataContractSerializer serializer = new NetDataContractSerializer();
+			serializer.WriteObject(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            NetDataContractSerializer serializer = new NetDataContractSerializer();
-            return (T)serializer.ReadObject(stream);
-        }       
-    }
+		public object Deserialize(System.IO.Stream stream, Type type)
+		{
+			NetDataContractSerializer serializer = new NetDataContractSerializer();
+			return serializer.ReadObject(stream);
+		}
+	}
 }

@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
-using SerializersTests.Messages;
 
 namespace SerializersTests.Adapters
 {
 
     public class DataContractSerializerAdapter : ISerializerAdapter
     {
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            DataContractSerializer serializer = new DataContractSerializer(typeof(T));
-            serializer.WriteObject(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			DataContractSerializer serializer = new DataContractSerializer(instance.GetType());
+			serializer.WriteObject(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            DataContractSerializer serializer = new DataContractSerializer(typeof(T));
-            return (T)serializer.ReadObject(stream);
-        }       
-    }
+		public object Deserialize(System.IO.Stream stream, Type type)
+		{
+			DataContractSerializer serializer = new DataContractSerializer(type);
+			return serializer.ReadObject(stream);
+		}
+	}
 
 }

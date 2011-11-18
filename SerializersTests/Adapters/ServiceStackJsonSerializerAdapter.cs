@@ -1,17 +1,18 @@
-﻿using ServiceStack.Text;
+﻿using System.IO;
+using ServiceStack.Text;
 
 namespace SerializersTests.Adapters
 {
     public class ServiceStackJsonSerializerAdapter : ISerializerAdapter
     {
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            JsonSerializer.SerializeToStream(instance, new IndisposableStream(stream));
-        }
+		public void Serialize(Stream stream, object instance)
+		{
+			JsonSerializer.SerializeToStream(instance, instance.GetType(), new IndisposableStream(stream));
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            return JsonSerializer.DeserializeFromStream<T>(stream);
-        }
-    }
+		public object Deserialize(Stream stream, System.Type type)
+		{
+			return JsonSerializer.DeserializeFromStream(type,stream);
+		}
+	}
 }

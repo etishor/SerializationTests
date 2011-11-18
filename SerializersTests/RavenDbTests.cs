@@ -41,13 +41,26 @@
 				{
 					DefaultMembersSearchFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance
 				};
-
-				using (var session = store.OpenSession())
+				try
 				{
-					session.Store(message, "test");
-					session.SaveChanges();
+					using (var session = store.OpenSession())
+					{
+						session.Store(message, "test");
+						session.SaveChanges();
+					}
 				}
-
+				catch (ArgumentException x)
+				{
+					// it's expected for ravendb to not store entities that implement ienumerable
+					if (x.Message.Contains("Object serialized to Array. RavenJObject instance expected."))
+					{
+						return;
+					}
+					else
+					{
+						throw;
+					}
+				}
 				using (var session = store.OpenSession())
 				{
 

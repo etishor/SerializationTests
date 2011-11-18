@@ -10,14 +10,14 @@ namespace SerializersTests.Adapters
     {
         private readonly SoapFormatter serializer = new SoapFormatter();
 
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            serializer.Serialize(stream, instance);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			serializer.Serialize(stream, instance);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            return (T)serializer.Deserialize(stream);
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, Type type)
+		{
+			return serializer.Deserialize(stream);
+		}
+	}
 }

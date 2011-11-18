@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NServiceBus;
 
 namespace SerializersTests.Adapters
 {
     public class NServiceBusXmlSerializerAdapter : ISerializerAdapter
     {
-        NServiceBus.Serializers.XML.MessageSerializer serializer = new NServiceBus.Serializers.XML.MessageSerializer()
+		NServiceBus.Serializers.XML.XmlMessageSerializer serializer = new NServiceBus.Serializers.XML.XmlMessageSerializer(
+			new NServiceBus.MessageInterfaces.MessageMapper.Reflection.MessageMapper()
+			)
         {
-            MessageMapper = new NServiceBus.MessageInterfaces.MessageMapper.Reflection.MessageMapper(),
-            MessageTypes = SerializationTests.GetMessages().ToList()
         };
 
-        public void Serialize<T>(System.IO.Stream stream, T instance)
-        {
-            serializer.Serialize(new NServiceBus.IMessage[] { (IMessage)instance }, stream);
-        }
+		public void Serialize(System.IO.Stream stream, object instance)
+		{
+			serializer.Serialize(new object[] { instance }, stream);
+		}
 
-        public T Deserialize<T>(System.IO.Stream stream)
-        {
-            return (T)serializer.Deserialize(stream).Single();
-        }
-    }
+		public object Deserialize(System.IO.Stream stream, Type type)
+		{
+			return serializer.Deserialize(stream).Single();
+		}
+	}
 }

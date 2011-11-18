@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
@@ -18,33 +19,32 @@ namespace SerializersTests.Adapters
 			}
 		};
 
-		public virtual void Serialize<T>(Stream stream, T instance)
+		protected virtual void Serialize(JsonWriter writer, object graph)
+		{
+			this.serializer.Serialize(writer, graph);
+		}
+
+		protected virtual object Deserialize(JsonReader reader, Type type)
+		{
+			return serializer.Deserialize(reader, type);
+		}
+
+		public virtual void Serialize(Stream stream, object instance)
 		{
 			using (var streamWriter = new StreamWriter(stream, Encoding.UTF8))
-			using(var jsonWriter = new JsonTextWriter(streamWriter))
+			using (var jsonWriter = new JsonTextWriter(streamWriter))
 			{
 				this.Serialize(jsonWriter, instance);
 			}
 		}
 
-		protected virtual void Serialize(JsonWriter writer, object graph)
-		{
-			writer.Formatting = Formatting.None;
-			this.serializer.Serialize(writer, graph);
-		}
-
-		public virtual T Deserialize<T>(System.IO.Stream stream)
+		public virtual object Deserialize(Stream stream, System.Type type)
 		{
 			using (StreamReader r = new StreamReader(stream))
-			using(var jsonReader = new JsonTextReader(r))
+			using (var jsonReader = new JsonTextReader(r))
 			{
-				return this.Deserialize<T>(jsonReader);
+				return this.Deserialize(jsonReader, type);
 			}
-		}
-
-		protected virtual T Deserialize<T>(JsonReader reader)
-		{
-			return serializer.Deserialize<T>(reader);
 		}
 	}
 }

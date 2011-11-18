@@ -39,9 +39,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\lib\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NServiceBus">
-      <HintPath>..\lib\NServiceBus\NServiceBus.dll</HintPath>
-    </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\lib\protobuf-net\protobuf-net.dll</HintPath>
     </Reference>
