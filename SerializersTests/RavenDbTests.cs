@@ -4,6 +4,7 @@
 	using System.Collections.Generic;
 	using System.Reflection;
 	using MbUnit.Framework;
+	using Newtonsoft.Json.Serialization;
 	using Raven.Tests;
 	
 	public class RavenDbTests : LocalClientTest
@@ -36,6 +37,11 @@
 
 			using (var store = NewDocumentStore())
 			{
+				store.Conventions.JsonContractResolver = new DefaultContractResolver
+				{
+					DefaultMembersSearchFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance
+				};
+
 				using (var session = store.OpenSession())
 				{
 					session.Store(message, "test");
