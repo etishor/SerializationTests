@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
-using ProtoBuf;
 using MbUnit.Framework;
+using ProtoBuf;
 
 namespace SerializersTests.Messages
 {
@@ -15,7 +13,7 @@ namespace SerializersTests.Messages
     {
         [DataMember]
         [ProtoMember(1)]
-        private IDictionary<int,List<string>> Value { get; set; }
+        public IDictionary<int, List<string>> Value { get; set; }
 
         public static ComposedIDictionaryProperty CreateInstance()
         {

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
-using ProtoBuf;
 using MbUnit.Framework;
+using ProtoBuf;
 
 namespace SerializersTests.Messages
 {
@@ -15,7 +12,7 @@ namespace SerializersTests.Messages
     {
         [DataMember]
         [ProtoMember(1)]
-        private object Value {get;set;}
+        public object Value { get; set; }
 
         public static ObjectProperty CreateInstance()
         {

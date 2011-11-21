@@ -12,7 +12,7 @@ namespace SerializersTests.Messages
 	{
 		[DataMember]
 		[ProtoMember(1)]
-		private object Value {get;set;}
+		public object Value {get;set;}
 
 		public static ObjectPropertyWithCustomValue CreateInstance()
 		{
@@ -27,7 +27,7 @@ namespace SerializersTests.Messages
 
 			CustomObject val = target.Value as CustomObject;
 			Assert.IsNotNull(val);
-			Assert.AreEqual(10, val.Value);
+			Assert.AreEqual(((CustomObject)this.Value).Value, val.Value);
 		}
 	}
 }

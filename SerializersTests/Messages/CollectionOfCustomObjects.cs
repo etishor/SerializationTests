@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
-using ProtoBuf;
 using MbUnit.Framework;
+using ProtoBuf;
 
 namespace SerializersTests.Messages
 {
@@ -24,8 +22,8 @@ namespace SerializersTests.Messages
             Assert.IsInstanceOfType<CollectionOfCustomObjects>(other);
             CollectionOfCustomObjects target = other as CollectionOfCustomObjects;
 
-            Assert.IsInstanceOfType(typeof(CustomObject), target.Single());
-            Assert.AreEqual(this.Single().Value, target.Single().Value);
+            Assert.AreEqual(this.Count, target.Count);
+            Assert.AreElementsEqual(this, target, new Gallio.Common.EqualityComparison<CustomObject>((a, b) => a.Value == b.Value));
         }
     }
 }

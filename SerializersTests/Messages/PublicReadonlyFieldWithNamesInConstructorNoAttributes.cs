@@ -34,7 +34,7 @@ namespace SerializersTests.Messages
 			PublicReadonlyFieldWithNamesInConstructorNoAttributes target = other as PublicReadonlyFieldWithNamesInConstructorNoAttributes;
 
 			Assert.AreEqual(this.Id, target.Id);
-			Assert.AreEqual(this.Date.ToUniversalTime(), target.Date.ToUniversalTime());
+			Assert.AreApproximatelyEqual(this.Date.ToUniversalTime(), target.Date.ToUniversalTime(),TimeSpan.FromSeconds(1));
 			Assert.AreEqual(this.Text, target.Text);
 			Assert.AreEqual(this.Number, target.Number);
 			Assert.AreEqual(this.Uri, target.Uri);

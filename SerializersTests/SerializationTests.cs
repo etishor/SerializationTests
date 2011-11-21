@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using MbUnit.Framework;
 using ProtoBuf;
 using TestDataGenerator;
+using SerializersTests.Messages;
 
 namespace SerializersTests
 {
@@ -21,50 +22,51 @@ namespace SerializersTests
     /// </remarks>
     public class SerializationTests
     {
-		private static Catalog catalog = new Catalog();
+        private static Catalog catalog = new Catalog();
 
         [StaticTestFactory]
         public static IEnumerable<Test> CreateTests()
         {
-			catalog.RegisterBuilder<Messages.UriWithQuotesAndSlashes>().WithPostConstruction(m =>
-			{
-				var tm = m as Messages.UriWithQuotesAndSlashes;
-				tm.ValueWithQuotes = new Uri(Messages.UriWithQuotesAndSlashes.UriQuotes);
-				tm.ValueWithSlashes = new Uri(Messages.UriWithQuotesAndSlashes.UriSlash);
-			});
+            catalog.RegisterBuilder<Messages.UriWithQuotesAndSlashes>().WithPostConstruction(m =>
+            {
+                var tm = m as Messages.UriWithQuotesAndSlashes;
+                tm.ValueWithQuotes = new Uri(Messages.UriWithQuotesAndSlashes.UriQuotes);
+                tm.ValueWithSlashes = new Uri(Messages.UriWithQuotesAndSlashes.UriSlash);
+            });
+            catalog.RegisterBuilder<ObjectPropertyWithCustomValue>().WithPostConstruction(o => ((ObjectPropertyWithCustomValue)o).Value = catalog.CreateInstance<CustomObject>());
+            
 
             foreach (Type serializer in GetSerializers())
             {
-                string name = serializer.Name.Replace("Adapter`1","");
+                string name = serializer.Name.Replace("Adapter`1", "");
 
                 TestSuite test = new TestSuite(name);
-                foreach(Type message in GetMessages())
+                foreach (Type message in GetMessages())
                 {
                     test.Children.Add(BuildTestCase(serializer, message));
-					test.Children.Add(BuildObjectTreeTestCase(serializer, message));
-				}
-				foreach (TestCase testCase in BuildEnumerableTests(serializer))
-				{
-					test.Children.Add(testCase);
-				}
-				yield return test;
+                    test.Children.Add(BuildObjectTreeTestCase(serializer, message));
+                }
+                foreach (TestCase testCase in BuildEnumerableTests(serializer))
+                {
+                    test.Children.Add(testCase);
+                }
+                yield return test;
             }
         }
 
         private static TestCase BuildTestCase(Type serializer, Type message)
         {
-            string name = string.Format("{0}_{1}",serializer.Name.Replace("Adapter`1",""),message.Name);
-            TestCase test = new TestCase(name, () => RunTest(serializer,message) );            
+            string name = string.Format("{0}_{1}", serializer.Name.Replace("Adapter`1", ""), message.Name);
+            TestCase test = new TestCase(name, () => RunTest(serializer, message));
             return test;
         }
 
-		private static TestCase BuildObjectTreeTestCase(Type serializer, Type message)
-		{
-			string name = string.Format("{0}_{1}_RndData", serializer.Name.Replace("Adapter`1", ""), message.Name);
-			TestCase test = new TestCase(name, () => RunObjectTreeTest(serializer, message));
-
-			return test;
-		}
+        private static TestCase BuildObjectTreeTestCase(Type serializer, Type message)
+        {
+            string name = string.Format("{0}_{1}_RndData", serializer.Name.Replace("Adapter`1", ""), message.Name);
+            TestCase test = new TestCase(name, () => RunObjectTreeTest(serializer, message));
+            return test;
+        }
 
         private static IEnumerable<TestCase> BuildEnumerableTests(Type serializerType)
         {
@@ -74,7 +76,7 @@ namespace SerializersTests
             string listName = string.Format("{0}_ListOfCustomObjects", serializerType.Name.Replace("Adapter`1", ""));
             yield return new TestCase(listName, () => RunListTest(serializerType));
         }
-        
+
         [Serializable]
         [DataContract]
         [ProtoContract]
@@ -98,12 +100,12 @@ namespace SerializersTests
                 bool ex = false;
                 try
                 {
-					serializer.Serialize(new IndisposableStream(ms), messages);
+                    serializer.Serialize(new IndisposableStream(ms), messages);
 
                     ms.Flush();
                     ms.Seek(0, SeekOrigin.Begin);
 
-					output = serializer.Deserialize(new IndisposableStream(ms), messagesType);
+                    output = serializer.Deserialize(new IndisposableStream(ms), messagesType);
                 }
                 catch (Exception x)
                 {
@@ -131,12 +133,12 @@ namespace SerializersTests
                 bool ex = false;
                 try
                 {
-					serializer.Serialize(new IndisposableStream(ms), messages);
+                    serializer.Serialize(new IndisposableStream(ms), messages);
 
                     ms.Flush();
                     ms.Seek(0, SeekOrigin.Begin);
 
-					output = serializer.Deserialize(new IndisposableStream(ms), messagesType);
+                    output = serializer.Deserialize(new IndisposableStream(ms), messagesType);
                 }
                 catch (Exception x)
                 {
@@ -151,42 +153,41 @@ namespace SerializersTests
                 }
             }
         }
-  
-		private static void RunObjectTreeTest(Type serializerType, Type messageType)
-		{
-			ISerializerAdapter serializer = (ISerializerAdapter)Activator.CreateInstance(serializerType);
-			
-			object message = catalog.CreateInstance(messageType);
 
-			using (MemoryStream ms = new MemoryStream())
-			{
-				object output = null;
-				bool ex = false;
-				try
-				{
-					serializer.Serialize(new IndisposableStream(ms), message);
+        private static void RunObjectTreeTest(Type serializerType, Type messageType)
+        {
+            ISerializerAdapter serializer = (ISerializerAdapter)Activator.CreateInstance(serializerType);
 
-					ms.Flush();
-					ms.Seek(0, SeekOrigin.Begin);
+            object message = catalog.CreateInstance(messageType);
 
-					output = serializer.Deserialize(new IndisposableStream(ms), messageType);
-					
-				}
-				catch (Exception x)
-				{
-					Assert.Inconclusive("The the serializer has at least thrown an exception instead of unexpected results {0}", x);
-					ex = true;
-				}
-				if (!ex)
-				{
-					ObjectDataTree messageData = new ObjectDataTree(message);
-					ObjectDataTree outputData = new ObjectDataTree(output);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                object output = null;
+                bool ex = false;
+                try
+                {
+                    serializer.Serialize(new IndisposableStream(ms), message);
 
-					Assert.AreEqual(messageData.StringValue(), outputData.StringValue());
-					(message as IAssertEquality).AssertEquality(output);
-				}
-			}			
-		}
+                    ms.Flush();
+                    ms.Seek(0, SeekOrigin.Begin);
+
+                    output = serializer.Deserialize(new IndisposableStream(ms), messageType);
+                }
+                catch (Exception x)
+                {
+                    Assert.Inconclusive("The the serializer has at least thrown an exception instead of unexpected results {0}", x);
+                    ex = true;
+                }
+                if (!ex)
+                {
+                    ObjectDataTree messageData = new ObjectDataTree(message);
+                    ObjectDataTree outputData = new ObjectDataTree(output);
+
+                    Assert.AreEqual(messageData.StringValue(), outputData.StringValue());
+                    (message as IAssertEquality).AssertEquality(output);
+                }
+            }
+        }
 
         private static void RunTest(Type serializerType, Type messageType)
         {
@@ -200,10 +201,10 @@ namespace SerializersTests
                 bool ex = false;
                 try
                 {
-					serializer.Serialize(new IndisposableStream(ms), message);
+                    serializer.Serialize(new IndisposableStream(ms), message);
                     ms.Flush();
                     ms.Seek(0, SeekOrigin.Begin);
-					output = serializer.Deserialize(new IndisposableStream(ms), messageType);
+                    output = serializer.Deserialize(new IndisposableStream(ms), messageType);
                 }
                 catch (Exception x)
                 {

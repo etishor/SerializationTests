@@ -69,7 +69,7 @@ namespace SerializersTests.Messages
 
             Assert.AreEqual(this.IntValue, target.IntValue);
             Assert.AreEqual(this.DecimalValue, target.DecimalValue);
-            Assert.AreApproximatelyEqual(this.DateValue, target.DateValue, TimeSpan.FromMilliseconds(1));
+            Assert.AreApproximatelyEqual(this.DateValue.ToUniversalTime(), target.DateValue.ToUniversalTime(), TimeSpan.FromMilliseconds(1));
             Assert.AreEqual(this.TimeSpanValue, target.TimeSpanValue);
             Assert.AreEqual(this.GuidValue, target.GuidValue);
             Assert.AreEqual(this.StringValue, target.StringValue);

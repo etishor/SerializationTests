@@ -25,7 +25,7 @@ namespace SerializersTests.Messages
     {
         [DataMember]
         [ProtoMember(1)]
-        private CustomObject Value { get; set; }
+        public CustomObject Value { get; set; }
 
         public static CustomObjectProperty CreateInstance()
         {
