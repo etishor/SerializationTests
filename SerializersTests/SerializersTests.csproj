@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Faker">
+      <HintPath>..\packages\Faker.1.2\lib\Faker.dll</HintPath>
+    </Reference>
     <Reference Include="Gallio, Version=3.3.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <HintPath>..\packages\mbunit.3.3.454.0\lib\net40\Gallio.dll</HintPath>
     </Reference>
@@ -51,9 +54,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MsgPack.0.1.0.2011042300\lib\net40\MsgPack.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.4.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.0.5.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.4.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\lib\NServiceBus\NServiceBus.dll</HintPath>
@@ -65,9 +68,9 @@
     <Reference Include="Polenter.SharpSerializer">
       <HintPath>..\packages\SharpSerializer.2.16\lib\net20\Polenter.SharpSerializer.dll</HintPath>
     </Reference>
-    <Reference Include="protobuf-net, Version=2.0.0.470, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+    <Reference Include="protobuf-net, Version=2.0.0.480, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\protobuf-net.2.0.0.470\lib\net40\protobuf-net.dll</HintPath>
+      <HintPath>..\packages\protobuf-net.2.0.0.480\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Abstractions">
       <HintPath>..\lib\Raven.Json\Raven.Abstractions.dll</HintPath>
@@ -81,9 +84,9 @@
     <Reference Include="Raven.Tests">
       <HintPath>..\lib\Raven.Json\Raven.Tests.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=3.0.6.5609, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=3.1.6.7101, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Text.3.0.6\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.3.1.6\lib\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -94,9 +97,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TestDataGenerator, Version=0.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TestDataGenerator, Version=0.0.0.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TestDataGenerator.0.0.5\lib\net40\TestDataGenerator.dll</HintPath>
+      <HintPath>..\packages\TestDataGenerator.0.0.7\lib\net40\TestDataGenerator.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
