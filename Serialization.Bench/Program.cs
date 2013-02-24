@@ -14,17 +14,7 @@ namespace Serialization.Bench
     class Program
     {
         static void Main(string[] args)
-        {
-            AppDomain.CurrentDomain.AssemblyResolve += (s, o) =>
-            {
-                var name = new AssemblyName(o.Name);
-                if (name.Name.Contains("Newtonsoft.Json"))
-                {
-                    return typeof(JsonContract).Assembly;
-                }
-                return null;
-            };
-
+        {            
             SerializationBenchmark.Run();
 
             Console.WriteLine("Done");
